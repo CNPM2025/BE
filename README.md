@@ -1,41 +1,103 @@
 # Architecture
 
 ```bash
-    ├── migrations
-    ├── scripts
-    │   └── run_postgres.sh
-    ├── src
-    │   ├── api
-    │   │   ├── controllers
-    │   │   │   └── ...  # controllers for the api
-    │   │   ├── schemas
-    │   │   │   └── ...  # Marshmallow schemas
-    │   │   ├── middleware.py
-    │   │   ├── responses.py
-    │   │   └── requests.py
-    │   ├── infrastructure
-    │   │   ├── services
-    │   │   │   └── ...  # Services that use third party libraries or services (e.g. email service)
-    │   │   ├── databases
-    │   │   │   └── ...  # Database adapaters and initialization
-    │   │   ├── repositories
-    │   │   │   └── ...  # Repositories for interacting with the databases
-    │   │   └── models
-    │   │   │   └── ...  # Database models
-    │   ├── domain
-    │   │   ├── constants.py
-    │   │   ├── exceptions.py
-    │   │   ├── models
-    │   │   │   └── ...  # Business logic models
-    │   ├── services
-    │   │    └── ...  # Services for interacting with the domain (business logic)
-    │   ├── app.py
-    │   ├── config.py
-    │   ├── cors.py
-    │   ├── create_app.py
-    │   ├── dependency_container.py
-    │   ├── error_handler.py
-    │   └── logging.py
+ ├── migrations/                     # alembic migration scripts
+│   └── versions/                   # migration history
+│
+├── scripts/
+│   └── run_postgres.sh             # script docker-compose hoặc psql để start DB
+│
+├── src/
+│   ├── api/
+│   │   ├── controllers/
+│   │   │   ├── user_controller.py
+│   │   │   ├── todo_controller.py
+│   │   │   ├── lessonplan_controller.py
+│   │   │   ├── test_controller.py
+│   │   │   ├── question_controller.py
+│   │   │   ├── answersheet_controller.py
+│   │   │   └── result_controller.py
+│   │   │
+│   │   ├── schemas/
+│   │   │   ├── user.py
+│   │   │   ├── todo.py
+│   │   │   ├── lessonplan.py
+│   │   │   ├── test.py
+│   │   │   ├── question.py
+│   │   │   ├── answersheet.py
+│   │   │   └── result.py
+│   │   │
+│   │   ├── middleware.py           # logging, auth
+│   │   ├── responses.py            # chuẩn hóa response
+│   │   └── requests.py             # helper validate request
+│   │
+│   ├── infrastructure/
+│   │   ├── services/
+│   │   │   ├── email_service.py    # ví dụ: gửi mail
+│   │   │   └── ocr_service.py      # OCR grading service
+│   │   │
+│   │   ├── databases/
+│   │   │   ├── base.py             # Base = declarative_base()
+│   │   │   ├── mssql.py            # engine, session, init
+│   │   │   └── postgres.py         # nếu bạn support Postgres
+│   │   │
+│   │   ├── repositories/
+│   │   │   ├── user_repository.py
+│   │   │   ├── todo_repository.py
+│   │   │   ├── lessonplan_repository.py
+│   │   │   ├── test_repository.py
+│   │   │   ├── question_repository.py
+│   │   │   ├── answersheet_repository.py
+│   │   │   └── result_repository.py
+│   │   │
+│   │   └── models/
+│   │       ├── user_model.py
+│   │       ├── todo_model.py
+│   │       ├── lessonplan_model.py
+│   │       ├── test_model.py
+│   │       ├── question_model.py
+│   │       ├── answersheet_model.py
+│   │       └── result_model.py
+│   │
+│   ├── domain/
+│   │   ├── constants.py
+│   │   ├── exceptions.py
+│   │   ├── models/
+│   │   │   ├── user.py
+│   │   │   ├── todo.py
+│   │   │   ├── lessonplan.py
+│   │   │   ├── test.py
+│   │   │   ├── question.py
+│   │   │   ├── answersheet.py
+│   │   │   └── result.py
+│   │   └── interfaces/
+│   │       ├── iuser_repository.py
+│   │       ├── itodo_repository.py
+│   │       ├── ilessonplan_repository.py
+│   │       ├── itest_repository.py
+│   │       ├── iquestion_repository.py
+│   │       ├── ianswersheet_repository.py
+│   │       └── iresult_repository.py
+│   │
+│   ├── services/
+│   │   ├── user_service.py
+│   │   ├── todo_service.py
+│   │   ├── lessonplan_service.py
+│   │   ├── test_service.py
+│   │   ├── question_service.py
+│   │   ├── answersheet_service.py
+│   │   └── result_service.py
+│   │
+│   ├── app.py
+│   ├── config.py
+│   ├── cors.py
+│   ├── create_app.py
+│   ├── dependency_container.py
+│   ├── error_handler.py
+│   └── logging.py
+│
+├── requirements.txt
+└── README.md
 ```
 
 ## Domain Layer
